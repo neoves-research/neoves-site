@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { NeovesLogo } from "./NeovesLogo";
 import { useTheme } from "../context/ThemeContext";
 
 const links = [
@@ -23,6 +22,31 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleMobileNavClick = (e, href) => {
+    e.preventDefault();
+    setOpen(false);
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        const navbarHeight = 80;
+        const targetPosition =
+          target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 300);
+  };
+
+  const logoColor = scrolled
+    ? theme === "dark"
+      ? "#0b2f63"
+      : "#FFFFFF"
+    : theme === "dark"
+    ? "#FFFFFF"
+    : "#0b2f63";
+
   return (
     <motion.header
       data-testid="navbar"
@@ -37,10 +61,16 @@ const Navbar = () => {
     >
       <div className="container-x flex items-center justify-between py-4">
         <a href="#top" className="flex items-center gap-2" data-testid="nav-logo">
-          <NeovesLogo
-            className="h-9 w-auto"
-            variant={theme === "dark" ? "dark" : "light"}
-          />
+          <span
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              color: logoColor,
+              letterSpacing: "0.02em",
+            }}
+            className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wider transition-colors duration-300"
+          >
+            NEOVES
+          </span>
         </a>
 
         <nav className="hidden md:flex items-center gap-1">
@@ -98,7 +128,7 @@ const Navbar = () => {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => handleMobileNavClick(e, l.href)}
                   className={`py-2 text-sm ${
                     scrolled
                       ? "text-white/80 dark:text-black/80"
@@ -110,7 +140,7 @@ const Navbar = () => {
               ))}
               <a
                 href="#contact"
-                onClick={() => setOpen(false)}
+                onClick={(e) => handleMobileNavClick(e, "#contact")}
                 className="pill-btn-primary mt-2 self-start"
               >
                 Contact Us

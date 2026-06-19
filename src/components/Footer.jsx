@@ -6,6 +6,8 @@ import { useTheme } from "../context/ThemeContext";
 
 const Footer = () => {
   const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <footer
       data-testid="footer"
@@ -14,12 +16,19 @@ const Footer = () => {
       <div className="container-x">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-5">
-            <div className="flex items-center gap-3">
-              <NeovesLogo
-                className="h-12 w-auto"
-                variant={theme === "dark" ? "dark" : "light"}
-              />
-            </div>
+           <div className="flex items-center gap-3">
+  <NeovesLogo className="h-12 w-auto" variant={isDark ? "dark" : "light"} />
+  <span
+    style={{
+      fontFamily: "Montserrat, sans-serif",
+      color: isDark ? "#0b2f63" : "#FFFFFF",
+      letterSpacing: "0.02em",
+    }}
+    className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wider transition-colors duration-300"
+  >
+    NEOVES
+  </span>
+</div>
             <p className="mt-5 text-white/55 dark:text-black/55 max-w-md leading-relaxed">
               A research-driven biotech startup exploring stem-cell-based
               solutions for neuropathy and nerve damage — to enable well-being.
@@ -31,10 +40,38 @@ const Footer = () => {
               Explore
             </p>
             <ul className="space-y-3 text-sm text-white/70 dark:text-black/70">
-              <li><a href="#research" className="hover:text-neoves-blue transition-colors">Research</a></li>
-              <li><a href="#mission" className="hover:text-neoves-blue transition-colors">Mission</a></li>
-              <li><a href="#milestones" className="hover:text-neoves-blue transition-colors">Milestones</a></li>
-              <li><a href="#team" className="hover:text-neoves-blue transition-colors">Team</a></li>
+              <li>
+                <a
+                  href="#research"
+                  className="hover:text-neoves-blue transition-colors"
+                >
+                  Research
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#mission"
+                  className="hover:text-neoves-blue transition-colors"
+                >
+                  Mission
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#milestones"
+                  className="hover:text-neoves-blue transition-colors"
+                >
+                  Milestones
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#team"
+                  className="hover:text-neoves-blue transition-colors"
+                >
+                  Team
+                </a>
+              </li>
             </ul>
           </div>
 
